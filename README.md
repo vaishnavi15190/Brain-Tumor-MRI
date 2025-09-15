@@ -1,9 +1,5 @@
 # Brain Tumor MRI Classification and Segmentation Project
 
-## Project Summary
-
-This repository contains the implementation and documentation for a Deep Learning project (22AIE304) focused on brain tumor detection and classification using the BRISC 2025 MRI dataset. Developed for Amrita Vishwa Vidyapeetham, the project compares traditional and deep learning-based feature extraction techniques to classify MRI images into glioma, meningioma, pituitary, and no-tumor categories. It includes two Jupyter notebooks and a detailed report, achieving accuracies up to 0.90+ with deep learning models. Authored by Vaishnavi (CH.SC.U4AIE23013) and Hansika (CH.SC.U4AIE23052), supervised by Dr. Deepak K.
-
 ## What Was Done
 
 ### 1. Dataset Preparation
