@@ -1,9 +1,5 @@
 # Brain Tumor MRI Classification and Segmentation Project
 
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
-![Python](https://img.shields.io/badge/Python-3.10-blue.svg)
-![Status: Completed](https://img.shields.io/badge/Status-Completed-green.svg)
-
 ## Project Summary
 
 This repository contains the implementation and documentation for a Deep Learning project (22AIE304) focused on brain tumor detection and classification using the BRISC 2025 MRI dataset. Developed for Amrita Vishwa Vidyapeetham, the project compares traditional and deep learning-based feature extraction techniques to classify MRI images into glioma, meningioma, pituitary, and no-tumor categories. It includes two Jupyter notebooks and a detailed report, achieving accuracies up to 0.90+ with deep learning models. Authored by Vaishnavi (CH.SC.U4AIE23013) and Hansika (CH.SC.U4AIE23052), supervised by Dr. Deepak K.
@@ -60,27 +56,7 @@ This repository contains the implementation and documentation for a Deep Learnin
   - ROC curves: AUCs from 0.70 (traditional) to 0.95 (VGG16).
   - Precision-recall graphs: Average precision from 0.68 (traditional) to 0.93 (VGG16).
 
-### 6. Documentation
-- **`Deep_Learning_FINAL.docx`**:
-  - Literature review on feature extraction (HOG, LBP, SIFT, GLCM, ORB).
-  - Detailed methodology, results, and trade-off analysis.
-  - Clinical relevance and future directions (e.g., hybrid models, Vision Transformers).
 
-### 7. Technical Details
-- **Libraries**: NumPy, OpenCV, Matplotlib, Scikit-learn, PyTorch, Torchvision, Pandas, Seaborn, Tqdm.
-- **Hardware**: CPU/GPU (CUDA) support for deep learning.
-- **Code**: Modular functions for image loading, feature extraction, classification, and evaluation.
-
-## Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/brain-tumor-mri-classification.git
-cd brain-tumor-mri-classification
-
-# Install dependencies (Python 3.10)
-pip install -r requirements.txt
-```
 
 **requirements.txt**:
 ```
@@ -108,19 +84,7 @@ jupyter notebook
 # - code2.ipynb: Edge/combined feature focus
 ```
 
-**Example Code** (from `code1.ipynb`):
-```python
-# Load images and extract deep features
-X, y = load_images(DATASET_DIR)
-X_train_deep = extract_deep_features(resnet, X_train)
-clf.fit(X_train_deep, y_train)
-print(classification_report(y_test, clf.predict(X_test_deep), target_names=classes))
-```
 
-## Contributors
-- Vaishnavi (CH.SC.U4AIE23013)
-- Hansika (CH.SC.U4AIE23052)
-- Supervisor: Dr. Deepak K.
-
-## License
-[MIT License](LICENSE)
+## Authors
+- Vaishnavi 
+- Hansika 
