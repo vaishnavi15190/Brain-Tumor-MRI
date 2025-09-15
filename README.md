@@ -1,146 +1,126 @@
-# Brain-Tumor-MRI
+# Brain Tumor MRI Classification and Segmentation Project
 
-Brain Tumor MRI Dataset for Segmentation and Classification  
-DATASET → [Kaggle BRISC 2025 Dataset](https://www.kaggle.com/datasets/briscdataset/brisc2025/data)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+![Python](https://img.shields.io/badge/Python-3.10-blue.svg)
+![Status: Completed](https://img.shields.io/badge/Status-Completed-green.svg)
 
----
+## Project Summary
 
-## 📌 About
-This project compares **traditional feature extraction** (HOG, LBP, edge features, GLCM, ORB) with **deep feature extraction** (ResNet18, VGG16, MobileNetV2) for brain MRI classification into four classes:
-- Glioma  
-- Meningioma  
-- Pituitary  
-- No-tumor  
+This repository contains the implementation and documentation for a Deep Learning project (22AIE304) focused on brain tumor detection and classification using the BRISC 2025 MRI dataset. Developed for Amrita Vishwa Vidyapeetham, the project compares traditional and deep learning-based feature extraction techniques to classify MRI images into glioma, meningioma, pituitary, and no-tumor categories. It includes two Jupyter notebooks and a detailed report, achieving accuracies up to 0.90+ with deep learning models. Authored by Vaishnavi (CH.SC.U4AIE23013) and Hansika (CH.SC.U4AIE23052), supervised by Dr. Deepak K.
 
-Classifiers used: **Logistic Regression** and **Random Forest**.  
-Evaluation: Confusion Matrices, ROC Curves, Precision-Recall Curves, Heatmaps.
+## What Was Done
 
----
+### 1. Dataset Preparation
+- **Dataset**: BRISC 2025 dataset (sourced from [Kaggle](https://www.kaggle.com/datasets/briscdataset/brisc2025)), with balanced classes: glioma, meningioma, pituitary, no-tumor.
+- **Preprocessing**:
+  - Resized images to 128x128 (traditional methods) or 224x224 pixels (deep learning).
+  - Applied grayscale conversion for traditional features and tensor normalization for deep learning.
+  - Split data 80-20 (train-test) with stratification for class balance.
 
-## 📂 Repository Structure
+### 2. Feature Extraction
+- **Traditional Features**:
+  - **HOG**: Gradient orientation histograms (8x8 pixels/cell, L2-Hys normalization) for shape/edge detection.
+  - **LBP**: Texture features with uniform patterns (P=24, R=3).
+  - **Edge Detection**: Canny (thresholds 50-150/100-200), Sobel, Laplacian for edge metrics, truncated to 500 elements.
+  - **Combined Features**: Edge features + intensity stats (mean, variance, median), histogram ratios, contour metrics (area, perimeter).
+- **Deep Features**:
+  - Used pre-trained CNNs (ImageNet weights) via transfer learning:
+    - **ResNet18**: 512D vectors from penultimate layer.
+    - **VGG16**: Convolutional feature module for detailed patterns.
+    - **MobileNetV2**: Lightweight feature extraction.
+  - Images resized to 224x224, converted to tensors, and normalized.
 
-├─ README.md
-├─ requirements.txt
-├─ notebooks/
-│ ├─ code1.ipynb # Traditional features + classifiers
-│ ├─ code2.ipynb # Deep features + classifiers
-├─ data/
-│ └─ brain_tumor_dataset/ # dataset goes here
-├─ models/ # saved models (.pkl/.pt)
-├─ outputs/
-│ ├─ figures/ # confusion matrices, ROC, PR, heatmaps
-│ └─ logs/
-└─ Deep_Learning_FINAL.docx
+### 3. Classification
+- **Logistic Regression**: Linear model (max_iter=500/1000) for interpretable results.
+- **Random Forest**: Ensemble model (n_estimators=100) for non-linear patterns.
 
+### 4. Experiments
+- **`code1.ipynb`**:
+  - Compared traditional (HOG, LBP, edge) and deep features (ResNet18, VGG16, MobileNetV2) with both classifiers.
+  - Evaluated using accuracy, precision, recall, F1-scores, confusion matrices, ROC curves, and precision-recall graphs.
+- **`code2.ipynb`**:
+  - Focused on Logistic Regression with edge-only and combined features.
+  - Visualized results with Seaborn confusion matrix heatmaps.
 
----
+### 5. Results
+- **Traditional Features**:
+  - Logistic Regression: 0.60-0.70 accuracy, F1-scores 0.60-0.75.
+  - Random Forest: 0.70-0.75 accuracy, F1-scores 0.70-0.85.
+- **Deep Features**:
+  - ResNet18 + Logistic Regression: >0.85 accuracy, F1-scores 0.82-0.88.
+  - ResNet18 + Random Forest: ~0.88 accuracy, F1-scores 0.85-0.90.
+  - VGG16 + Logistic Regression: >0.90 accuracy, F1-scores 0.88-0.93.
+  - VGG16 + Random Forest: >0.90 accuracy, F1-scores up to 0.94 (best).
+  - MobileNetV2 + Random Forest: 0.85-0.88 accuracy, F1-scores 0.82-0.90.
+- **Edge/Combined Features**:
+  - Edge (Logistic Regression): ~0.65 accuracy, F1-scores 0.60-0.75.
+  - Combined (Logistic Regression): ~0.75 accuracy, F1-scores 0.65-0.80.
+- **Visualizations** (in `Deep_Learning_FINAL.docx`):
+  - Confusion matrices: Strong diagonals for deep methods, fewer glioma/meningioma errors.
+  - ROC curves: AUCs from 0.70 (traditional) to 0.95 (VGG16).
+  - Precision-recall graphs: Average precision from 0.68 (traditional) to 0.93 (VGG16).
 
-## ⚙️ Requirements
-- Python 3.8+  
-- PyTorch with CUDA (optional, for GPU acceleration)
+### 6. Documentation
+- **`Deep_Learning_FINAL.docx`**:
+  - Literature review on feature extraction (HOG, LBP, SIFT, GLCM, ORB).
+  - Detailed methodology, results, and trade-off analysis.
+  - Clinical relevance and future directions (e.g., hybrid models, Vision Transformers).
 
-Install:
+### 7. Technical Details
+- **Libraries**: NumPy, OpenCV, Matplotlib, Scikit-learn, PyTorch, Torchvision, Pandas, Seaborn, Tqdm.
+- **Hardware**: CPU/GPU (CUDA) support for deep learning.
+- **Code**: Modular functions for image loading, feature extraction, classification, and evaluation.
+
+## Installation
+
 ```bash
+# Clone the repository
+git clone https://github.com/yourusername/brain-tumor-mri-classification.git
+cd brain-tumor-mri-classification
+
+# Install dependencies (Python 3.10)
 pip install -r requirements.txt
+```
 
-
-requirements.txt:
-
+**requirements.txt**:
+```
 numpy
-pandas
-scikit-learn
 opencv-python
-scikit-image
 matplotlib
-seaborn
+scikit-learn
 torch
 torchvision
 tqdm
-joblib
-Pillow
-imutils
+pandas
+seaborn
+```
 
+- **Dataset**: Download BRISC 2025 from [Kaggle](https://www.kaggle.com/datasets/briscdataset/brisc2025) and update `DATASET_DIR` in `code1.ipynb` and `data_dir` in `code2.ipynb`.
 
-Dataset Setup
+## Usage
 
-Download dataset from Kaggle
-.
+```bash
+# Launch Jupyter Notebook
+jupyter notebook
 
-Place it under:
+# Run experiments
+# - code1.ipynb: Full traditional + deep feature analysis
+# - code2.ipynb: Edge/combined feature focus
+```
 
-data/brain_tumor_dataset/
-├─ glioma/
-├─ meningioma/
-├─ pituitary/
-└─ no_tumor/
+**Example Code** (from `code1.ipynb`):
+```python
+# Load images and extract deep features
+X, y = load_images(DATASET_DIR)
+X_train_deep = extract_deep_features(resnet, X_train)
+clf.fit(X_train_deep, y_train)
+print(classification_report(y_test, clf.predict(X_test_deep), target_names=classes))
+```
 
+## Contributors
+- Vaishnavi (CH.SC.U4AIE23013)
+- Hansika (CH.SC.U4AIE23052)
+- Supervisor: Dr. Deepak K.
 
-Update paths in notebooks if needed
-
-
-Launch Jupyter:
-
-jupyter lab
-
-
-Run notebooks/code1.ipynb → preprocessing, traditional features, classifiers
-
-Run notebooks/code2.ipynb → deep feature extraction, classifiers, plots
-
-Step-by-Step Workflow
-
-Load Data → verify dataset structure, resize to 128x128 or 224x224.
-
-Preprocessing → grayscale (if needed), normalization, optional denoising.
-
-Traditional Features → HOG, LBP, edges, GLCM, ORB.
-
-Train Classifiers → Logistic Regression, Random Forest.
-
-Evaluate → Confusion Matrix, ROC, PR curves, AUC.
-
-Deep Features → extract embeddings using ResNet18, VGG16, MobileNetV2.
-
-Classify on Embeddings → same classifiers, compare performance.
-
-Save Outputs → models → /models, plots → /outputs/figures.
-
-Results & Figures
-
-Confusion Matrices (for each classifier)
-
-ROC & PR curves
-
-Heatmaps showing feature performance
-
-All figures are saved under outputs/figures/.
-
-Reproducibility
-
-Fix seeds:
-
-import random, numpy as np, torch
-SEED = 42
-random.seed(SEED); np.random.seed(SEED); torch.manual_seed(SEED)
-if torch.cuda.is_available(): torch.cuda.manual_seed_all(SEED)
-
-
-Log library versions:
-
-pip freeze > requirements.txt
-
-Example CLI (optional if scripts added)
-# Extract deep features
-python src/deep_features.py --arch resnet18 --data data/brain_tumor_dataset --out features/resnet18.npy
-
-# Train classifier
-python src/train.py --features features/resnet18.npy --labels features/labels.npy --model random_forest --out models/rf_resnet18.pkl
-
-# Evaluate
-python src/evaluate.py --model models/rf_resnet18.pkl --features features/test.npy --labels features/test_labels.npy
-
-Authors
-
-Vaishnavi 
-
-Hansika 
+## License
+[MIT License](LICENSE)
